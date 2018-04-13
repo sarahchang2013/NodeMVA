@@ -12,9 +12,13 @@ var path = require('path');
 var app = express();
 
 // all environments
+//app.set(name, value) may let you store any value you want
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+//app.use([path,] callback [, callback...])
+//Mounts the specified middleware function or functions at the specified path:
+//the function is executed when the base of the requested path matches path.
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -28,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
-
+// use GET request to request the route: '/','/users', etc.
 app.get('/', routes.index);
 app.get('/users', user.list);
 
